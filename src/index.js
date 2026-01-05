@@ -1,6 +1,20 @@
 import express from 'express'
-import { db } from './db/pg.js'
+import { get_all_task } from './repositories/get.js'
 const app = express()
+
+app.get('/all', async (_, res) => {
+    try {
+        const info = await get_all_task()
+        return res.status(200).json(info)
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json(error)
+    }
+})
+
+
+
 
 
 
