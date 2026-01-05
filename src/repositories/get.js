@@ -7,7 +7,8 @@ export const get_all_task = async () => {
             type: QueryTypes.SELECT,
         })
 
-        if (!dbResponse || !dbResponse[0]) throw new Error('DB no devolvio data')
+        if (!dbResponse || !dbResponse[0] || !dbResponse[0]?.result) throw new Error('DB no devolvio data')
+
 
         return dbResponse[0].result
     } catch (error) {
