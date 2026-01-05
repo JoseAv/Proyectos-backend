@@ -1,6 +1,5 @@
 import express from 'express'
-
-
+import { db } from './db/pg.js'
 const app = express()
 
 
