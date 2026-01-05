@@ -1,0 +1,12 @@
+services:
+
+  db:
+    image: postgres:alpine:3.23
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+    volume:
+    data:/var/lib/postgresql/data
+    ports: 
+        - 5454
