@@ -1,5 +1,4 @@
-// Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize('database', 'username', 'password', {
+const sequelize = new Sequelize('postgre', 'admin', 'admin', {
     host: 'localhost',
     dialect: 'postgres'
 })
