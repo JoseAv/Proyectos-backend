@@ -7,7 +7,7 @@ import { AuthController } from '../controllers/authController.js'
 export const RouterAuth = (ModelAutentication) => {
     const Routes = Router()
     const newAuth = new AuthController(ModelAutentication)
-    Routes.post('/register', newAuth.LogIn)
+    Routes.post('/register', newAuth.Register)
 
 
     return Routes
