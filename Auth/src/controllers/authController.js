@@ -1,5 +1,7 @@
 import { ComprobationRegister } from '../validation/register.js'
 import { hashPassword, comparePassword } from '../config/bCryp.js'
+import { signJWT } from '../config/jwt.js'
+import { email } from 'zod';
 
 
 export class AuthController {
@@ -45,8 +47,15 @@ export class AuthController {
                 return
             }
             const compareUser = await comparePassword(user.password, userDb.password)
-            res.status(dbResponse.status).json({ message: dbResponse.message })
+            if (!compareUser) {
+                res.status(401).json({ message: 'credenciales incorrectas' })
+            }
+
+            const token = await signJWT(userDb.id)
+
+            res.status(dbResponse.status).json({ token, user: { id: userDb.id, email: userDb.email } })
         } catch (error) {
+            console.log(error)
             res.status(400).json({ message: 'Error' })
         }
 

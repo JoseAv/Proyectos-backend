@@ -1,10 +1,12 @@
+import jwt from "jsonwebtoken";
 const secret = 'esto es un secreo de prueba no usar asi'
 
 export const signJWT = async (id) => {
     try {
-        return await jwt.sign({ id }, secret, { expiresIn: '1h' });
+        return jwt.sign({ id }, secret, { expiresIn: '1h' });
     } catch (error) {
-        throw new Error('Esto es un error')
+        console.log(error)
+        throw new Error('Error en la firma')
     }
 }
 

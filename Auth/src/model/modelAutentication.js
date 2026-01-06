@@ -27,7 +27,22 @@ export class ModelAutentication {
             return responseDb[0].result
 
         } catch (error) {
-            throw new Error('error')
+            throw new Error('Error en la db')
+        }
+    }
+
+
+
+    static userExist = async ({ id }) => {
+        try {
+            const responseDb = await dbPostgre.query('select fn_comprobate_user(:fn_id) as result;', {
+                replacements: { id },
+                type: QueryTypes.SELECT
+            })
+            return responseDb[0].result
+
+        } catch (error) {
+            throw new Error('Error en la db')
         }
     }
 
