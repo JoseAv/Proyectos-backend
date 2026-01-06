@@ -1,3 +1,4 @@
+import { describe } from 'zod/v4/core'
 import { db } from '../db/pg.js'
 import { QueryTypes } from 'sequelize'
 
@@ -17,3 +18,40 @@ export const get_tasks = async (id = null) => {
     }
 
 }
+
+
+export const create_task = async (task) => {
+    try {
+        return await db.query('CALL p_new_tasks(:title, :description)', {
+            replacements: {
+                ...task
+            },
+            type: QueryTypes.SELECT,
+        })
+
+    } catch (error) {
+        throw new Error(String(error))
+    }
+
+}
+
+
+export const update_task = async (task) => {
+    try {
+        return await db.query('CALL p_update_task(:id,:title, :description, :status)', {
+            replacements: {
+                id: task.id,
+                title: task.title ?? null,
+                description: task.description ?? null,
+                status: task.status ?? null
+            },
+            type: QueryTypes.SELECT,
+        })
+
+    } catch (error) {
+        console.log(error)
+        throw new Error(String(error))
+    }
+
+}
+
