@@ -10,3 +10,4 @@ const registerUser = z.object({
 export const ComprobationRegister = async ({ user }) => {
     return registerUser.safeParse(user)
 }
+

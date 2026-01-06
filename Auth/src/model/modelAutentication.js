@@ -18,5 +18,20 @@ export class ModelAutentication {
     }
 
 
+    static login = async ({ email }) => {
+        try {
+            const responseDb = await dbPostgre.query('select fn_login(:fn_email) as result;', {
+                replacements: { fn_email: email },
+                type: QueryTypes.SELECT
+            })
+            return responseDb[0].result
+
+        } catch (error) {
+            throw new Error('error')
+        }
+    }
+
+
+
 
 }
