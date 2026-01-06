@@ -1,0 +1,21 @@
+# Use postgres/example user/password credentials
+
+services:
+
+  db:
+    image: postgres:15.15
+    restart: always
+    volumes:
+      - postgre-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+    ports:
+    - "5432:5432"
+
+
+volumes:
+  postgre-data:
+    driver: local
+
+
