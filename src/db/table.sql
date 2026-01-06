@@ -26,6 +26,10 @@ CALL p_new_tasks('Prueba #2', 'Prueba 2');
 create or replace procedure p_update_task(p_id int, p_title varchar(500) default null,p_description varchar(500) default null, p_status state default null)
 as $$
     begin
+        if (select 1+1 from tasks where id=p_id) is null then
+            raise exception 'No existe esta tarea';
+        end if;
+
         update tasks
         set title=coalesce(p_title, tasks.title),
             description = coalesce(p_description, tasks.description),
@@ -34,7 +38,7 @@ as $$
     end;
     $$language plpgsql;
 
-call p_update_task(1, 'update prueba',null,'inactive');
+call p_update_task(10, 'update prueba',null,'inactive');
 
 create or replace function fn_get_task(p_id int default null)
     returns json
@@ -48,7 +52,7 @@ as  $$
             end if;
 
             if (select 1+1 from tasks where id=p_id) is not null then
-                select to_jsonb(tasks) from tasks into result;
+                select to_jsonb(tasks) from tasks where id =p_id into result;
                 return  result;
             end if;
 
@@ -56,6 +60,6 @@ as  $$
         end;
     $$ language plpgsql;
 
-select fn_get_task(10);
+select fn_get_task();
 
 select * from tasks

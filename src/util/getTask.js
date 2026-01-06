@@ -8,7 +8,7 @@ export const getTask = async (req, res) => {
             const info = await get_tasks(id)
             return res.status(200).json(info)
         } catch (error) {
-            return res.status(400).json(error)
+            return res.status(400).json({ messaage: 'No se pudo obtener la tarea' })
         }
     }
 

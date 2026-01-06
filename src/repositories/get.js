@@ -13,7 +13,6 @@ export const get_tasks = async (id = null) => {
         if (!dbResponse || !dbResponse[0] || !dbResponse[0]?.result) throw new Error('DB no devolvio data')
         return dbResponse[0].result
     } catch (error) {
-        console.log(error)
         throw new Error(String(error))
     }
 
@@ -49,7 +48,6 @@ export const update_task = async (task) => {
         })
 
     } catch (error) {
-        console.log(error)
         throw new Error(String(error))
     }
 
