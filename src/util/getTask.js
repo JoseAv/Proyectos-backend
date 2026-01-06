@@ -1,3 +1,4 @@
+import { schemaCreate, schemaUpdate } from '../schema/validation.js'
 import { get_tasks, create_task, update_task } from '../repositories/get.js'
 
 export const getTask = async (req, res) => {
@@ -16,11 +17,12 @@ export const getTask = async (req, res) => {
 export const postTask = async (req, res) => {
     try {
         const task = req.body
+        const validation = await schemaCreate(task)
+        if (!validation.success) throw new Error('No cumple la validacion')
         await create_task(task)
-
         return res.status(200).json({ meesage: 'Creado con exito' })
     } catch (error) {
-        return res.status(400).json(error)
+        return res.status(400).json({ message: 'No se pudo crear' })
     }
 }
 
@@ -29,13 +31,13 @@ export const postTask = async (req, res) => {
 export const put_task = async (req, res) => {
     try {
         const id = Number(req.params.id)
-        if (!id) throw new Error('id is necesary')
-
         const task = { ...req.body, id }
+        const validation = await schemaUpdate(task)
+        if (!validation.success) throw new Error('No cumple la validacion')
         await update_task(task)
-
         return res.status(200).json({ meesage: 'Actualizado con exito' })
     } catch (error) {
-        return res.status(400).json(error)
+        console.log(error)
+        return res.status(400).json({ message: 'no se pudo actualizarS' })
     }
 }
