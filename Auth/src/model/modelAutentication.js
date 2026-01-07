@@ -34,11 +34,13 @@ export class ModelAutentication {
 
 
     static userExist = async ({ id }) => {
+        console.log(id)
         try {
             const responseDb = await dbPostgre.query('select fn_comprobate_user(:fn_id) as result;', {
-                replacements: { id },
+                replacements: { fn_id: id },
                 type: QueryTypes.SELECT
             })
+
             return responseDb[0].result
 
         } catch (error) {

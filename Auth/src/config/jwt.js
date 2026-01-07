@@ -13,9 +13,12 @@ export const signJWT = async (id) => {
 
 
 export const verifyJWT = async (token) => {
+    console.log(token)
     try {
-        return await jwt.verify(token, secret)
+        const comprobatio = jwt.verify(String(token).split(" ")[1], secret)
+        return comprobatio
     } catch (error) {
+        console.log(error)
         throw new Error('Esto es un error')
     }
 }

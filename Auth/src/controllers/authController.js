@@ -1,7 +1,6 @@
 import { ComprobationRegister } from '../validation/register.js'
 import { hashPassword, comparePassword } from '../config/bCryp.js'
 import { signJWT } from '../config/jwt.js'
-import { email } from 'zod';
 
 
 export class AuthController {
@@ -60,6 +59,21 @@ export class AuthController {
         }
 
     }
+
+    Profile = async (req, res) => {
+        try {
+            if (!req.session) {
+                res.status(401).json({ message: 'Ruta protegida' })
+            }
+            const dbResponse = await this.AutenticationModel.userExist({ id: req.session })
+            res.status(dbResponse.status).json({ ...dbResponse.user })
+        } catch (error) {
+            console.log(error)
+            res.status(400).json({ message: 'Error' })
+        }
+
+    }
+
 
 
 }
