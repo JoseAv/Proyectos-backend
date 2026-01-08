@@ -219,7 +219,7 @@ Debes probar y validar estos escenarios:
 
 Tu ejercicio estará completo cuando:
 
-- [ ] Todas las relaciones están correctamente implementadas (FK, tablas pivote)
+- [X] Todas las relaciones están correctamente implementadas (FK, tablas pivote)
 - [ ] Los 12 casos de prueba funcionan como se espera
 - [ ] Las validaciones de límites funcionan (3 categorías max, 10 tags max)
 - [ ] Los slugs se generan automáticamente
